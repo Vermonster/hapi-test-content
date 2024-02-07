@@ -1,0 +1,259 @@
+{
+	"info": {
+		"_postman_id": "c7275978-8ff2-42a6-ba3f-b4baa1de219c",
+		"name": "PlanDefinition CPG-SDC examples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25403373"
+	},
+	"item": [
+		{
+			"name": "$questionnaire - Case1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"resourceType\": \"Parameters\",\n  \"id\": \"QuestionnaireParameters1\",\n  \"parameter\": [\n    {\n      \"name\": \"url\",\n      \"valueUri\": \"http://example.org/PlanDefinition/SulfasalazineMonitoringRecommendation\"\n    },\n    {\n      \"name\": \"version\",\n      \"valueString\": \"0.1.0\"\n    },\n    {\n      \"name\": \"data\",\n      \"resource\": {\n        \"resourceType\": \"Bundle\",\n        \"id\": \"InitialBundle\",\n        \"meta\": {\n          \"tag\": [\n            {\n              \"code\": \"test\"\n            }\n          ]\n        },\n        \"type\": \"collection\",\n        \"entry\": [\n          {\n            \"fullUrl\": \"http://example.org/Patient/Patient1\",\n            \"resource\": {\n              \"resourceType\": \"Patient\",\n              \"id\": \"Patient1\",\n              \"name\": [\n                {\n                  \"family\": \"Patient1\"\n                }\n              ]\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/Practitioner/PractitionerShared\",\n            \"resource\": {\n              \"resourceType\": \"Practitioner\",\n              \"id\": \"PractitionerShared\",\n              \"name\": [\n                {\n                  \"family\": \"practitionershared\"\n                }\n              ]\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/Organization/OrganizationShared\",\n            \"resource\": {\n              \"resourceType\": \"Organization\",\n              \"id\": \"OrganizationShared\",\n              \"name\": \"organizationshared\"\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/Encounter/Encounter1\",\n            \"resource\": {\n              \"resourceType\": \"Encounter\",\n              \"id\": \"Encounter1\",\n              \"status\": \"in-progress\",\n              \"class\": {\n                \"code\": \"AMB\",\n                \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\n                \"display\": \"ambulatory\"\n              },\n              \"subject\": {\n                \"reference\": \"Patient/Patient1\"\n              },\n              \"participant\": [\n                {\n                  \"type\": [\n                    {\n                      \"coding\": [\n                        {\n                          \"code\": \"PPRF\",\n                          \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\n                          \"display\": \"primary performer\"\n                        }\n                      ]\n                    }\n                  ],\n                  \"individual\": {\n                    \"reference\": \"Practitioner/PractitionerShared\"\n                  }\n                }\n              ],\n              \"serviceProvider\": {\n                \"reference\": \"Organization/OrganizationShared\"\n              }\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/MedicationRequest/MedicationRequest1\",\n            \"resource\": {\n              \"resourceType\": \"MedicationRequest\",\n              \"id\": \"MedicationRequest1\",\n              \"status\": \"active\",\n              \"intent\": \"order\",\n              \"subject\": {\n                \"reference\": \"Patient/Patient1\"\n              },\n              \"medicationCodeableConcept\": {\n                \"coding\": [\n                  {\n                    \"code\": \"A07EC01\",\n                    \"system\": \"http://www.whocc.no/atc\",\n                    \"display\": \"Sulfasalazine\"\n                  }\n                ]\n              }\n            }\n          }\n        ]\n      }\n    },\n    {\n      \"name\": \"artifactEndpointConfiguration\",\n      \"part\": [\n        {\n          \"name\": \"artifactRoute\",\n          \"valueUri\": \"{{contentArtifactRoute}}\"\n        },\n        {\n          \"name\": \"endpointUri\",\n          \"valueUri\": \"{{contentEndpointAddress}}\"\n        },\n        {\n          \"name\": \"endpoint\",\n          \"resource\": {\n            \"resourceType\": \"Endpoint\",\n            \"address\": \"{{contentEndpointAddress}}\",\n            \"status\": \"active\",\n            \"connectionType\": {\n              \"code\": \"{{contentEndpointType}}\"\n            }\n          }\n        }\n      ]\n    },\n    {\n      \"name\": \"artifactEndpointConfiguration\",\n      \"part\": [\n        {\n          \"name\": \"artifactRoute\",\n          \"valueUri\": \"{{baseResourceArtifactRoute}}\"\n        },\n        {\n          \"name\": \"endpointUri\",\n          \"valueUri\": \"{{baseResourceEndpointAddress}}\"\n        },\n        {\n          \"name\": \"endpoint\",\n          \"resource\": {\n            \"resourceType\": \"Endpoint\",\n            \"address\": \"{{baseResourceEndpointAddress}}\",\n            \"status\": \"active\",\n            \"connectionType\": {\n              \"code\": \"{{baseResourceEndpointType}}\"\n           }\n          }\n        }\n      ]\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{cpgServer}}/PlanDefinition/$questionnaire",
+					"host": [
+						"{{cpgServer}}"
+					],
+					"path": [
+						"PlanDefinition",
+						"$questionnaire"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "$assemble - Case1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"resourceType\": \"Parameters\",\n  \"id\": \"AssembleParameters1\",\n  \"parameter\": [\n    {\n      \"name\": \"questionnaire\",\n      \"resource\": {\n        \"resourceType\": \"Questionnaire\",\n        \"id\": \"ModularQuestionnaire1\",\n        \"meta\": {\n          \"profile\": [\n            \"http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-modular\"\n          ]\n        },\n        \"url\": \"http://questionnaire-processor/Questionnaire/ModularQuestionnaire1\",\n        \"status\": \"draft\",\n        \"extension\": [\n          {\n            \"url\": \"http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assemble-expectation\",\n            \"valueCode\": \"assemble-root\"\n          }\n        ],\n        \"item\": [\n          {\n            \"linkId\": \"ActiveSulfasalazineFeature#Observation\",\n            \"definition\": \"http://example.org/StructureDefinition/ActiveSulfasalazineFeature#Observation\",\n            \"extension\": [\n              {\n                \"url\": \"http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-subQuestionnaire\",\n                \"valueCanonical\": \"http://questionnaire-processor/Questionnaire/ActiveSulfasalazineFeatureQuestionnaire1\"\n              }\n            ],\n            \"type\": \"display\",\n            \"text\": \"ActiveSulfasalazineFeature#Observation sub-questionnaire\"\n          },\n          {\n            \"linkId\": \"LastCbcPanelReportDateFeature#Observation\",\n            \"definition\": \"http://example.org/StructureDefinition/LastCbcPanelReportDateFeature#Observation\",\n            \"extension\": [\n              {\n                \"url\": \"http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-subQuestionnaire\",\n                \"valueCanonical\": \"http://questionnaire-processor/Questionnaire/LastCbcPanelReportDateFeatureQuestionnaire1\"\n              }\n            ],\n            \"type\": \"display\",\n            \"text\": \"LastCbcPanelReportDateFeature#Observation sub-questionnaire\"\n          }\n        ]\n      }\n    },\n    {\n      \"name\": \"contentEndpoint\",\n      \"resource\": {\n        \"resourceType\": \"Endpoint\",\n        \"address\": \"{{contentEndpointAddress}}\",\n        \"status\": \"active\",\n        \"payloadType\": [\n          {\n            \"coding\": [\n              {\n                \"code\": \"content\"\n              }\n            ]\n          }\n        ],\n        \"connectionType\": {\n          \"code\": \"{{contentEndpointType}}\"\n        }\n      }\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{cpgServer}}/Questionnaire/$assemble",
+					"host": [
+						"{{cpgServer}}"
+					],
+					"path": [
+						"Questionnaire",
+						"$assemble"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "$apply - Case1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"resourceType\": \"Parameters\",\n  \"id\": \"ApplyParameters1\",\n  \"parameter\": [\n    {\n      \"name\": \"url\",\n      \"valueString\": \"http://example.org/PlanDefinition/SulfasalazineMonitoringRecommendation\"\n    },\n    {\n      \"name\": \"data\",\n      \"resource\": {\n        \"resourceType\": \"Bundle\",\n        \"id\": \"BundleCase1Modified\",\n        \"meta\": {\n          \"tag\": [\n            {\n              \"code\": \"test\"\n            }\n          ]\n        },\n        \"type\": \"collection\",\n        \"entry\": [\n          {\n            \"fullUrl\": \"http://example.org/Patient/Patient1\",\n            \"resource\": {\n              \"resourceType\": \"Patient\",\n              \"id\": \"Patient1\",\n              \"name\": [\n                {\n                  \"family\": \"Patient1\"\n                }\n              ]\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/Practitioner/PractitionerShared\",\n            \"resource\": {\n              \"resourceType\": \"Practitioner\",\n              \"id\": \"PractitionerShared\",\n              \"name\": [\n                {\n                  \"family\": \"practitionershared\"\n                }\n              ]\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/Organization/OrganizationShared\",\n            \"resource\": {\n              \"resourceType\": \"Organization\",\n              \"id\": \"OrganizationShared\",\n              \"name\": \"organizationshared\"\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/Encounter/Encounter1\",\n            \"resource\": {\n              \"resourceType\": \"Encounter\",\n              \"id\": \"Encounter1\",\n              \"status\": \"in-progress\",\n              \"class\": {\n                \"code\": \"AMB\",\n                \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\n                \"display\": \"ambulatory\"\n              },\n              \"subject\": {\n                \"reference\": \"Patient/Patient1\"\n              },\n              \"participant\": [\n                {\n                  \"type\": [\n                    {\n                      \"coding\": [\n                        {\n                          \"code\": \"PPRF\",\n                          \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\n                          \"display\": \"primary performer\"\n                        }\n                      ]\n                    }\n                  ],\n                  \"individual\": {\n                    \"reference\": \"Practitioner/PractitionerShared\"\n                  }\n                }\n              ],\n              \"serviceProvider\": {\n                \"reference\": \"Organization/OrganizationShared\"\n              }\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/MedicationRequest/MedicationRequest1\",\n            \"resource\": {\n              \"resourceType\": \"MedicationRequest\",\n              \"id\": \"MedicationRequest1\",\n              \"status\": \"active\",\n              \"intent\": \"order\",\n              \"subject\": {\n                \"reference\": \"Patient/Patient1\"\n              },\n              \"medicationCodeableConcept\": {\n                \"coding\": [\n                  {\n                    \"code\": \"A07EC01\",\n                    \"system\": \"http://www.whocc.no/atc\",\n                    \"display\": \"Sulfasalazine\"\n                  }\n                ]\n              }\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/Observation/ActiveSulfasalazineFeatureObservation1\",\n            \"resource\": {\n              \"resourceType\": \"Observation\",\n              \"id\": \"ActiveSulfasalazineFeatureObservation1\",\n              \"meta\": {\n                \"profile\": [\n                  \"http://example.org/StructureDefinition/ActiveSulfasalazineFeature\"\n                ]\n              },\n              \"status\": \"final\",\n              \"code\": {\n                \"coding\": [\n                  {\n                    \"code\": \"on-medication-sulfasalazine\",\n                    \"system\": \"http://example.org/CodeSystem/CaseFeatureCodes\"\n                  }\n                ]\n              },\n              \"derivedFrom\": [\n                {\n                  \"reference\": \"Questionnaire/QuestionnaireResponse1\"\n                }\n              ],\n              \"subject\": {\n                \"reference\": \"Patient/Patient1\"\n              },\n              \"performer\": [\n                {\n                  \"reference\": \"Organization/OrganizationShared\"\n                }\n              ],\n              \"valueBoolean\": true,\n              \"effectiveDateTime\": \"2023-12-13\"\n            }\n          }\n        ]\n      }\n    },\n    {\n      \"name\": \"subject\",\n      \"valueString\": \"Patient/Patient1\"\n    },\n    {\n      \"name\": \"contentEndpoint\",\n      \"resource\": {\n        \"resourceType\": \"Endpoint\",\n        \"address\": \"{{contentEndpointAddress}}\",\n        \"status\": \"active\",\n        \"payloadType\": [\n          {\n            \"coding\": [\n              {\n                \"code\": \"content\"\n              }\n            ]\n          }\n        ],\n        \"connectionType\": {\n          \"code\": \"{{contentEndpointType}}\"\n        }\n      }\n    },\n    {\n      \"name\": \"terminologyEndpoint\",\n      \"resource\": {\n        \"resourceType\": \"Endpoint\",\n        \"address\": \"{{terminologyEndpointAddress}}\",\n        \"status\": \"active\",\n        \"payloadType\": [\n          {\n            \"coding\": [\n              {\n                \"code\": \"terminology\"\n              }\n            ]\n          }\n        ],\n        \"connectionType\": {\n          \"code\": \"{{terminologyEndpointType}}\"\n        }\n      }\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{cpgServer}}/PlanDefinition/$apply",
+					"host": [
+						"{{cpgServer}}"
+					],
+					"path": [
+						"PlanDefinition",
+						"$apply"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "$apply - Case2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"resourceType\": \"Parameters\",\n  \"id\": \"ApplyParameters2\",\n  \"parameter\": [\n    {\n      \"name\": \"url\",\n      \"valueString\": \"http://example.org/PlanDefinition/SulfasalazineMonitoringRecommendation\"\n    },\n    {\n      \"name\": \"data\",\n      \"resource\": {\n        \"resourceType\": \"Bundle\",\n        \"id\": \"BundleCase2Modified\",\n        \"meta\": {\n          \"tag\": [\n            {\n              \"code\": \"test\"\n            }\n          ]\n        },\n        \"type\": \"collection\",\n        \"entry\": [\n          {\n            \"fullUrl\": \"http://example.org/Patient/Patient1\",\n            \"resource\": {\n              \"resourceType\": \"Patient\",\n              \"id\": \"Patient1\",\n              \"name\": [\n                {\n                  \"family\": \"Patient1\"\n                }\n              ]\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/Practitioner/PractitionerShared\",\n            \"resource\": {\n              \"resourceType\": \"Practitioner\",\n              \"id\": \"PractitionerShared\",\n              \"name\": [\n                {\n                  \"family\": \"practitionershared\"\n                }\n              ]\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/Organization/OrganizationShared\",\n            \"resource\": {\n              \"resourceType\": \"Organization\",\n              \"id\": \"OrganizationShared\",\n              \"name\": \"organizationshared\"\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/Encounter/Encounter1\",\n            \"resource\": {\n              \"resourceType\": \"Encounter\",\n              \"id\": \"Encounter1\",\n              \"status\": \"in-progress\",\n              \"class\": {\n                \"code\": \"AMB\",\n                \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\n                \"display\": \"ambulatory\"\n              },\n              \"subject\": {\n                \"reference\": \"Patient/Patient1\"\n              },\n              \"participant\": [\n                {\n                  \"type\": [\n                    {\n                      \"coding\": [\n                        {\n                          \"code\": \"PPRF\",\n                          \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ParticipationType\",\n                          \"display\": \"primary performer\"\n                        }\n                      ]\n                    }\n                  ],\n                  \"individual\": {\n                    \"reference\": \"Practitioner/PractitionerShared\"\n                  }\n                }\n              ],\n              \"serviceProvider\": {\n                \"reference\": \"Organization/OrganizationShared\"\n              }\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/MedictionRequest/MedicationRequest1\",\n            \"resource\": {\n              \"resourceType\": \"MedicationRequest\",\n              \"id\": \"MedicationRequest1\",\n              \"status\": \"active\",\n              \"intent\": \"order\",\n              \"subject\": {\n                \"reference\": \"Patient/Patient1\"\n              },\n              \"medicationCodeableConcept\": {\n                \"coding\": [\n                  {\n                    \"code\": \"A07EC01\",\n                    \"system\": \"http://www.whocc.no/atc\",\n                    \"display\": \"Sulfasalazine\"\n                  }\n                ]\n              }\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/Observation/ActiveSulfasalazineFeatureObservation2\",\n            \"resource\": {\n              \"resourceType\": \"Observation\",\n              \"id\": \"ActiveSulfasalazineFeatureObservation2\",\n              \"meta\": {\n                \"profile\": [\n                  \"http://example.org/StructureDefinition/ActiveSulfasalazineFeature\"\n                ]\n              },\n              \"status\": \"final\",\n              \"code\": {\n                \"coding\": [\n                  {\n                    \"code\": \"on-medication-sulfasalazine\",\n                    \"system\": \"http://example.org/CodeSystem/CaseFeatureCodes\"\n                  }\n                ]\n              },\n              \"derivedFrom\": [\n                {\n                  \"reference\": \"Questionnaire/QuestionnaireResponse2\"\n                }\n              ],\n              \"subject\": {\n                \"reference\": \"Patient/Patient1\"\n              },\n              \"valueBoolean\": true,\n              \"effectiveDateTime\": \"2023-12-13\"\n            }\n          },\n          {\n            \"fullUrl\": \"http://example.org/Observation/LastCbcPanelReportDateFeatureObservation2\",\n            \"resource\": {\n              \"resourceType\": \"Observation\",\n              \"id\": \"LastCbcPanelReportDateFeatureObservation2\",\n              \"meta\": {\n                \"profile\": [\n                  \"http://example.org/StructureDefinition/LastCbcPanelReportDateFeature\"\n                ]\n              },\n              \"status\": \"final\",\n              \"code\": {\n                \"coding\": [\n                  {\n                    \"code\": \"last-cbc-panel-report-date\",\n                    \"system\": \"http://example.org/CodeSystem/CaseFeatureCodes\"\n                  }\n                ]\n              },\n              \"derivedFrom\": [\n                {\n                  \"reference\": \"Questionnaire/QuestionnaireResponse2\"\n                }\n              ],\n              \"subject\": {\n                \"reference\": \"Patient/Patient1\"\n              },\n              \"valueDateTime\": \"2023-12-04\",\n              \"effectiveDateTime\": \"2023-12-13\"\n            }\n          }\n        ]\n      }\n    },\n    {\n      \"name\": \"subject\",\n      \"valueString\": \"Patient/Patient1\"\n    },\n    {\n      \"name\": \"contentEndpoint\",\n      \"resource\": {\n        \"resourceType\": \"Endpoint\",\n        \"address\": \"{{contentEndpointAddress}}\",\n        \"status\": \"active\",\n        \"payloadType\": [\n          {\n            \"coding\": [\n              {\n                \"code\": \"content\"\n              }\n            ]\n          }\n        ],\n        \"connectionType\": {\n          \"code\": \"{{contentEndpointType}}\"\n        }\n      }\n    },\n    {\n      \"name\": \"terminologyEndpoint\",\n      \"resource\": {\n        \"resourceType\": \"Endpoint\",\n        \"address\": \"{{terminologyEndpointAddress}}\",\n        \"status\": \"active\",\n        \"payloadType\": [\n          {\n            \"coding\": [\n              {\n                \"code\": \"terminology\"\n              }\n            ]\n          }\n        ],\n        \"connectionType\": {\n          \"code\": \"{{terminologyEndpointType}}\"\n        }\n      }\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{cpgServer}}/PlanDefinition/$apply",
+					"host": [
+						"{{cpgServer}}"
+					],
+					"path": [
+						"PlanDefinition",
+						"$apply"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"/**",
+					" * Delete the id and text as this can vary per request",
+					" */",
+					"",
+					"const deleteLinkId = (i) => {",
+					"  if (i.item) {",
+					"    i.item.forEach(subI => {",
+					"      delete subI.linkId",
+					"      deleteLinkId(subI)",
+					"    })",
+					"  }",
+					"}",
+					"",
+					"Object.prototype.testPrepare = function testPrepare(resource) {",
+					"    delete resource.id;",
+					"    delete resource.meta;",
+					"    delete resource.url;",
+					"    delete resource.description;",
+					"    resource.item.forEach(item => {",
+					"      delete item.linkId",
+					"      deleteLinkId(item)",
+					"    })",
+					"    return resource;",
+					"}",
+					"",
+					"",
+					"/**",
+					" * Find difference between two objects",
+					" * @param  {object} origObj - Source object to compare newObj against",
+					" * @param  {object} newObj  - New object with potential changes",
+					" * @return {object} differences",
+					" */",
+					"function difference(origObj, newObj) {",
+					"  function changes(newObj, origObj) {",
+					"    let arrayIndexCounter = 0",
+					"    return _.transform(newObj, function (result, value, key) {",
+					"      if (!_.isEqual(value, origObj[key])) {",
+					"        let resultKey = _.isArray(origObj) ? arrayIndexCounter++ : key",
+					"        result[resultKey] = (_.isObject(value) && _.isObject(origObj[key])) ? changes(value, origObj[key]) : value",
+					"      }",
+					"    })",
+					"  }",
+					"  return changes(newObj, origObj)",
+					"}",
+					"",
+					"/**",
+					" * Does a deep equal comparison, uses console.log to show diffs if fails.",
+					" * ",
+					" * @example",
+					" * pm.test(\"My test\", function() {",
+					" *   _.expectToDeepEqual(pm.response.json(), expected, console);",
+					" * });",
+					" */",
+					"Object.prototype.expectToDeepEqual = (actual, expected, console = console) => {",
+					"    try {",
+					"        pm.expect(_.testPrepare(actual)).to.deep.equal(_.testPrepare(expected));        ",
+					"    } catch (e) {",
+					"        const diff = difference(e.expected, e.actual);",
+					"        console.log('difference expected to actual', diff);",
+					"        console.log({ actual: e.actual, expected: e.expected});",
+					"        e.message = `*** See Console *** ${e.message}`;",
+					"        throw new Error(e);",
+					"    }",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "cpgServer",
+			"value": "http://localhost:9001",
+			"type": "string"
+		},
+		{
+			"key": "contentEndpointType",
+			"value": "hl7-fhir-file",
+			"type": "string"
+		},
+		{
+			"key": "contentEndpointAddress",
+			"value": "file:///Users/taylorkingston/projects/cpg-starter-example/output",
+			"type": "string"
+		},
+		{
+			"key": "contentArtifactRoute",
+			"value": "http://example.org",
+			"type": "string"
+		},
+		{
+			"key": "baseResourceEndpointType",
+			"value": "hl7-fhir-rest",
+			"type": "string"
+		},
+		{
+			"key": "baseResourceEndpointAddress",
+			"value": "http://hapi.fhir.org/baseR4",
+			"type": "string"
+		},
+		{
+			"key": "baseResourceArtifactRoute",
+			"value": "http://hl7.org/fhir",
+			"type": "string"
+		},
+		{
+			"key": "terminologyEndpointType",
+			"value": "hl7-fhir-file",
+			"type": "string"
+		},
+		{
+			"key": "terminologyEndpointAddress",
+			"value": "file:///Users/taylorkingston/projects/cpg-starter-example/output",
+			"type": "string"
+		}
+	]
+}

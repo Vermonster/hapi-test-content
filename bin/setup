@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR="$(cd -P "$(dirname -- "${BASH_SOURCE}")" >/dev/null 2>&1 && pwd)"
+
+cd $SCRIPT_DIR/../
+
+./_updatePublisher.sh -f -y
+echo "✔️ Done updating publisher"
+
+npm install -g fsh-sushi jake
+echo "✔️ Done installing sushi and jake"
+
+if ! command -v jekyll &> /dev/null
+then
+  gem install jekyll -N
+  echo "✔️ Done installing jake"
+else
+  echo "✔️ Jekyll already installed"
+fi
+
+echo "✔️ Done setting up environment."

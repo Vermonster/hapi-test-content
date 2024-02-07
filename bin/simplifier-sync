@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# Change this if you want...
+# SIMPLIFIER_EMAIL=<email>
+# SIMPLIFIER_PROJECT=<project>
+# SIMPLIFIER_PASSWORD=<pass>
+
+if [[ -z "$SIMPLIFIER_EMAIL" ]]; then
+   echo Must set SIMPLIFIER_EMAIL
+   exit 1
+fi
+
+if [[ -z "$SIMPLIFIER_PASSWORD" ]]; then
+   echo Must set SIMPLIFIER_PASSWORD
+   exit 1
+fi
+
+if [[ -z "$SIMPLIFIER_PROJECT" ]]; then
+   echo Must set SIMPLIFIER_PROJECT
+   exit 1
+fi
+
+outputdir=$1
+
+echo
+echo Converting $outputdir/package.r4.tgz to $outputdir/package.zip
+echo
+tar xzf $outputdir/package.r4.tgz && zip $outputdir/package.zip $(tar tf $outputdir/package.r4.tgz)
+rm -rf package
+
+echo
+token=$( curl -X POST https://api.simplifier.net/token \
+   -H "Content-Type: application/json" \
+   -d "{\"Email\": \"${SIMPLIFIER_EMAIL}\", \"Password\": \"${SIMPLIFIER_PASSWORD}\"}" \
+   | jq -r '.token' )
+
+echo
+echo Uploading package.zip to project ${SIMPLIFIER_PROJECT}
+echo
+curl --data-binary @$outputdir/package.zip -H "Authorization: Bearer $token" \
+   -H "Content-Type: application/zip" \
+   https://api.simplifier.net/${SIMPLIFIER_PROJECT}/zip
