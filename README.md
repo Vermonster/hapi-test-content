@@ -1,89 +1,23 @@
-# CPG Example
+# HAPI Testing
 
-## Setup content development environment
+$apply
 
-```
-./bin/setup
-```
+* CarePlan in place of Bundle of RequestGroups
 
-Then install the following plugins in VS Code:
+$extract
 
-* FHIR Shorthand by MITRE-Health
-* Clinical Quality Language (CQL) by Clinical Quality Framework
+* Processing of answer.value data type Coding
+     Error:  ca.uhn.fhir.parser.DataFormatException: HAPI-1831: value has type org.hl7.fhir.r4.model.Coding but this is not a valid type for this element
+* A new resource is created vs updating current case feature (there is a comment in the source code indicating this is a TODO item)
+* Extracted resources are missing properties like status, code, etc (r/t missing questionnaire items)
+* I was unable to enable this with $apply + data context with QR and instead called $extract separately
 
-## Development
+$questionnaire (with $apply)
 
-There are several build and test tasks available (`jake -T` show the full list):
+* Does not currently include all items from differential and should use snapshot as fallback - for example, if element in differential does not have property "type", it will not appear on the questionnaire
+* Should use hidden extension on non-value case feature items
 
-### Default task
-Runs `build:publish` and `simplifier`, see below for more information
-```
-jake
-```
-
-
-### Build sushi
-The sushi command converts FHIR Shorthand to FHIR JSON, putting the resulting files in `./fsh-generated/resources`.
-
-```
-jake build:sushi
-```
-
-### Build IG
-This command runs the IG Publisher, which wraps the sushi command. Also converts the CQL to ELM and creates the corresponding FHIR library resources. It also runs validation and generates a static website. Lastly, it creates a FHIR package. The output of the publisher is in `./output`.
-```
-jake build:publish
-```
-
-### Test prepare
-This command calles sushi, then makes copies of use case fixtures and vocabulary in the directory structure that the VS Code CQL plugin expects.
-```
-jake test:prepare
-```
-
-### Simplifier
-Uploads the generated FHIR package (from the IG Publisher) and syncs it to your Simplifier project. Note: the following environment variables need to be set:
-* `SIMPLIFIER_PROJECT` This is the urlkey for your Simplifier project.
-* `SIMPLIFIER_EMAIL` This is the email address of your Simplifier account.
-* `SIMPLIFIER_PASSWORD` This is password of your Simplifier account.
-
-Note: It is convenient to export these variables using `export VAR='value'`.
-
-Visit https://simplifier.net to create your account and a free project.
-
-```
-jake simplifier
-```
-
-## Verify your data in Simplifier
-
-Once the content data is synchronized to Simplifier, you can view all the resources there.
-
-To apply the dependencies for your project, go to the Dependencies tab on the project and from the dropdown next to `Manage`, select `Restore (advanced)`. 
-
-From your Simplifier project page, find the `API` dropdown and copy the `Project FHIR API` endpoint url.
-
-On synchronization, Simplifier will overwrite existing filenames. If you want to delete one or more files from your project, use the `File manager` from the `Files` dropdown.
-
-## Running the CPG Engine
-
-The CPG engine is available at https://github.com/reason-healthcare/reason-framework. Follow the readme there if you want to run it locally from source.
-
-Additionally, a prebuilt Docker image is available at https://hub.docker.com/r/bkaney/reason-framework.
-
-To run use a command like this:
-```
-docker run --rm \
-    -p 9001:9001 \
-    -e "ENDPOINT_ADDRESS=https://fhir.simplifier.net/CPG-workshop" \
-    -e "CANONICAL_SEARCH_ROOT=true" \
-    bkaney/reason-framework
-```
-
-## Run the CPG with Postman
-
-In Postman, import the Postman collection from the postman folder in the  [reason-framework](https://github.com/reason-healthcare/reason-framework) project.
-
-On the imported Reasoning Framework collection, find the variables tab and change the 'current' value of all three `EndpointAddress` variables to the `Project FHIR API` endpoint url of your Simplifier project.
-
-Now run the two `$apply` operations to test if our recommendations work! In the Body of the calls you can change the test data that is being used, like switching out `Patient1` for `Patient2` and corresponding references.
+Questions:
+* Should extract context be added to SD generated questionnaires?
+* How should we handle snapshots?
+* How to enable $extract with $apply operation
