@@ -13,7 +13,7 @@ Usage: #definition
   * description = "Order monitoring tests for antirheumatic drug therapy (Therapy)."
   * extension[$cqf-qualityOfEvidence].valueCodeableConcept = $evidence-quality#high
   * extension[$cqf-strengthOfRecommendation].valueCodeableConcept = $recommendation-strength#strong
-  * extension[$cpg-directionOfRecommendation].valueCodeableConcept = $cpg-recommendation-direction#for
+  * extension[$cpg-directionOfRecommendation].valueCodeableConcept = $cpg-recommendation-direction-cs#for
   * condition
     * kind = #applicability
     * expression

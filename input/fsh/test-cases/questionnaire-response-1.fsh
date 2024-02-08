@@ -5,14 +5,8 @@ Usage: #inline
 * status = #completed
 * subject = Reference(Patient/Patient1)
 * authored = "2024-01-22T11:45:33+11:00"
-* questionnaire = Canonical(Inline-Instance-for-TherapyMonitoringRecommendation-2)
+* questionnaire = Canonical(TherapyMonitoringRecommendationQuestionnaire)
 * item[0]
-  * extension[+]
-    * valueExpression
-      * language = #text/cql-identifier
-      * expression = "On Therapy"
-      * reference = "http://example.org/Library/ActiveTherapyFeatureLogic"
-    * url = "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemExtractionContext"
   * linkId = "1"
   * definition = "http://example.org/StructureDefinition/ActiveTherapyFeature#Observation"
   * text = "ActiveTherapyFeature"
@@ -20,7 +14,7 @@ Usage: #inline
     * linkId = "1.1"
     * definition = "http://example.org/StructureDefinition/ActiveTherapyFeature#Observation.value[x]"
     * text = "Observation.value[x]"
-    * answer.valueCoding = therapy-cs#on-methotrexate
+    * answer.valueCoding = therapy-cs#on-methotrexate // Coding type causes error with extract
 * item[+]
   * linkId = "2"
   * definition = "http://example.org/StructureDefinition/LastCbcPanelReportDateFeature#Observation"
@@ -29,4 +23,4 @@ Usage: #inline
     * linkId = "2.1"
     * definition = "http://example.org/StructureDefinition/LastCbcPanelReportDateFeature#Observation.value[x]"
     * text = "Observation.value[x]"
-    * answer.valueDateTime = "2023-01-22T11:45:33+11:00"
+    * answer.valueDateTime = "2024-01-22T11:45:33+11:00"
